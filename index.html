@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>MSA</title>
   <style>
     body {
@@ -20,8 +21,12 @@
     }
 
     .target {
-      width: 80px;
-      height: 80px;
+      width: 15vw;
+      height: 15vw;
+      max-width: 120px;
+      max-height: 120px;
+      min-width: 60px;
+      min-height: 60px;
       background-color: #00ff00;
       border-radius: 50%;
       position: absolute;
@@ -31,6 +36,7 @@
       align-items: center;
       justify-content: center;
       font-weight: bold;
+      font-size: 5vw;
     }
 
     .message {
@@ -38,7 +44,9 @@
       top: 20px;
       left: 50%;
       transform: translateX(-50%);
-      font-size: 24px;
+      font-size: 5vw;
+      max-width: 90vw;
+      text-align: center;
     }
 
     .logo-final {
@@ -48,7 +56,8 @@
       transform: translate(-50%, -50%);
       display: none;
       animation: spin 8s linear infinite;
-      width: 300px;
+      width: 60vw;
+      max-width: 300px;
     }
 
     @keyframes spin {
@@ -59,7 +68,7 @@
 </head>
 <body>
   <div class="game-area" id="game">
-    <div class="message" id="message">Click pe cerc Vei castiga ceva in cateva momente !! 0/10</div>
+    <div class="message" id="message">Click pe cerc! Vei castiga ceva in cateva momente! 0/10</div>
     <div class="target" id="target">🎯</div>
     <img src="msa.png" class="logo-final" id="logo" alt="MSA Logo">
   </div>
@@ -68,19 +77,20 @@
     const target = document.getElementById('target');
     const message = document.getElementById('message');
     const logo = document.getElementById('logo');
-    const game = document.getElementById('game');
 
     let clicks = 0;
     const totalClicks = 10;
 
     function moveTarget() {
-      const maxX = window.innerWidth - 80;
-      const maxY = window.innerHeight - 80;
-      const randX = Math.floor(Math.random() * maxX);
-      const randY = Math.floor(Math.random() * maxY);
+      const targetWidth = target.offsetWidth;
+      const targetHeight = target.offsetHeight;
+      const maxX = window.innerWidth - targetWidth;
+      const maxY = window.innerHeight - targetHeight;
+      const randX = Math.random() * maxX;
+      const randY = Math.random() * maxY;
 
-      target.style.left = randX + 'px';
-      target.style.top = randY + 'px';
+      target.style.left = `${randX}px`;
+      target.style.top = `${randY}px`;
     }
 
     target.addEventListener('click', () => {
@@ -95,8 +105,8 @@
       }
     });
 
-    // Pozitionare initiala
     moveTarget();
+    window.addEventListener('resize', moveTarget);
   </script>
 </body>
 </html>
